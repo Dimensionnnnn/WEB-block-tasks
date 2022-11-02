@@ -145,6 +145,44 @@ body{
     margin: 0;
 }
 
+.selectdiv{
+    position: relative;
+    min-width: 50px;
+    margin: 10px 0 0;
+}
+
+.selectdiv:after {
+    content: '<>';
+    font: 15px "Consolas", monospace;
+    color: #333;
+    right: 11px;
+    top: 15px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #999;
+    position: absolute;
+    pointer-events: none;
+    transform: rotate(90deg);
+  }
+  
+  .selectdiv select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 40px;
+    float: right;
+    margin: 5px 0px;
+    padding: 0px 15px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #333;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    -ms-word-break: normal;
+    word-break: normal;
+  }
+
 .contacts-inner{
     display: flex;
     background-color: #574b63;
