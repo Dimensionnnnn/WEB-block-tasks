@@ -183,6 +183,42 @@ body{
     word-break: normal;
   }
 
+
+.crypto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.crypto .container-crypto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #ccc;
+    margin: 20px;
+}
+
+.crypto .container-crypto .logo{
+    width: 70px;
+    margin-right: 10px;
+
+}
+
+.crypto .container-crypto .logo img{
+    width: 100%;
+}
+
+.crypto .container-crypto div{
+    display: block;
+}
+
+.crypto .container-crypto div h1{
+    font-size: 20px;
+}
+
 .contacts-inner{
     display: flex;
     background-color: #574b63;
