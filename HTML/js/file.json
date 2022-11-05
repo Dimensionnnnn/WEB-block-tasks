@@ -1,0 +1,35 @@
+[
+    {
+        "id": "silver", 
+        "cname": "color-item",
+        "url": "images/silver.png",
+        "title": "Silver",
+        "ptitle": "Серебристый",
+        "sclass": "selectdiv",
+        "cbtn": "custom-btn btn"
+    }, {
+        "id": "deepPurple", 
+        "cname": "color-item",
+        "url": "images/purple.png",
+        "title": "Deep purple",
+        "ptitle": "Темно фиолетовый",
+        "sclass": "selectdiv",
+        "cbtn": "custom-btn btn"
+    }, {
+        "id": "gold", 
+        "cname": "color-item",
+        "url": "images/gold.png",
+        "title": "Gold",
+        "ptitle": "Золотой",
+        "sclass": "selectdiv",
+        "cbtn": "custom-btn btn"
+    }, {
+        "id": "spaceBlack", 
+        "cname": "color-item",
+        "url": "images/black.png",
+        "title": "Space black",
+        "ptitle": "Космический черный",
+        "sclass": "selectdiv",
+        "cbtn": "custom-btn btn"
+    }
+]

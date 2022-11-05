@@ -82,68 +82,62 @@
             <h2 class="color-title">
               ВЫБЕРИ СВОЙ ЦВЕТ
             </h2>
-            <ul class="color-list">
-              <li class="color-item">
-                <img src="images/silver.png" alt="">
-                <h3>Silver</h3>
-                <p>Серебристый</p>
-                <div class="selectdiv">
-                  <label>
-                    <select>
-                      <option value="choix-2">128 ГБ</option>
-                      <option value="choix-3">256 ГБ</option>
-                      <option value="choix-4">512 ГБ</option>
-                      <option value="choix-5">1 ТБ</option>
-                    </select>
-                  </label>
-                </div>
-              </li>
-              <li class="color-item">
-                <img src="images/purple.png" alt="">
-                <h3>Deep purple</h3>
-                <p>Темно фиолетовый</p>
-                <div class="selectdiv">
-                  <label>
-                    <select>
-                      <option value="choix-2">128 ГБ</option>
-                      <option value="choix-3">256 ГБ</option>
-                      <option value="choix-4">512 ГБ</option>
-                      <option value="choix-5">1 ТБ</option>
-                    </select>
-                  </label>
-                </div>
-              </li>
-              <li class="color-item">
-                <img src="images/gold.png" alt="">
-                <h3>Gold</h3>
-                <p>Золотой</p>
-                <div class="selectdiv">
-                  <label>
-                    <select>
-                      <option value="choix-2">128 ГБ</option>
-                      <option value="choix-3">256 ГБ</option>
-                      <option value="choix-4">512 ГБ</option>
-                      <option value="choix-5">1 ТБ</option>
-                    </select>
-                  </label>
-                </div>
-              </li>
-              <li class="color-item">
-                <img src="images/black.png" alt="">
-                <h3>Space black</h3>
-                <p>Космический черный</p>
-                <div class="selectdiv">
-                  <label>
-                    <select>
-                      <option value="choix-2">128 ГБ</option>
-                      <option value="choix-3">256 ГБ</option>
-                      <option value="choix-4">512 ГБ</option>
-                      <option value="choix-5">1 ТБ</option>
-                    </select>
-                  </label>
-                </div>
-              </li>
-            </ul>
+            <ul id="root" class="color-list"></ul>
+            <script type="text/babel">
+              var request = new XMLHttpRequest();
+              request.open("GET", "/js/file.json", false);
+              request.send(null);
+              const posts = JSON.parse(request.responseText);
+
+              const options = [
+                { value: '128', label: '128 ГБ'},
+                { value: '256', label: '256 ГБ'},
+                { value: '512', label: '512 ГБ'},
+                { value: '1024', label: '1 ТБ'},
+              ];
+
+              const ManagedComponent = () =>
+                posts.map((post) => <Card key={post.id} post={post}/>);
+
+              function Card({ post }) {
+                const [value, setValue] = React.useState(options[0].value);
+
+                const onSubmit = React.useCallback(() => {
+                  alert('Вы выбрали ' + post.ptitle.toLowerCase() + " цвет и " +  value + ' ГБ'); 
+                  event.preventDefault();             
+                }, [value]);
+
+                const onChange = ((e) => {
+                  console.log('старое значение: ' + value + ' новое значение: ' + e.target.value);
+                  setValue(e.target.value);
+                })
+
+                return(
+                  <li key={post.id} className={post.cname}>
+                    <img src={post.url} alt={post.ptitle}/>
+                    <h3>{post.title}</h3>
+                    <p>{post.ptitle}</p>
+                    <div className={post.sclass}>
+                      <form onSubmit={onSubmit}>
+                        <select
+                          name={post.id}
+                          value={value}
+                          onChange ={onChange}
+                        >
+                          {options.map((item) => (
+                            <option key={item.value} value={item.value}>
+                              {item.label}
+                            </option>
+                          ))}
+                        </select>
+                        <input className={post.cbtn} type="submit" value="Submit"/>
+                      </form>
+                    </div>
+                  </li>
+                )
+              }
+            ReactDOM.render(<ManagedComponent/>, document.getElementById("root"));
+            </script>
           </div>
         </section>
         <section class="crypto">
@@ -214,5 +208,8 @@
       </footer>
       <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
       <script src="js/main.js"></script>
+      <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+      <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
     </body> 
 </html>
