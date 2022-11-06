@@ -84,10 +84,52 @@
             </h2>
             <ul id="root" class="color-list"></ul>
             <script type="text/babel">
-              var request = new XMLHttpRequest();
-              request.open("GET", "/js/file.json", false);
-              request.send(null);
-              const posts = JSON.parse(request.responseText);
+
+              class ManagedComponent extends React.Component {
+                state = {value: options[0].value}
+
+                handleSubmit = ({target: {name} }) => {
+                  alert('Вы выбрали ' + name.toLowerCase() + ' цвет и ' + this.state.value + ' ГБ');
+                  event.preventDefault();
+                }
+                handleChange = ({ target: {name, value} }) => { 
+                  console.log('старое значение: ' + this.state.value + ' новое значение: ' + value);
+                  this.setState({value});
+                }
+
+                  render() {
+                    return posts.map((post) =>(
+                      <li key={post.id} className="color-item">
+                        <img src={post.url} alt={post.ptitle}/>
+                        <h3>{post.title}</h3>
+                        <p>{post.ptitle}</p>
+                        <div className="selectdiv">
+                          <form name={post.ptitle} onSubmit={this.handleSubmit}>
+                            <select
+                              name={post.id}
+                              value={this.state[post.ptitle]}
+                              onChange={this.handleChange}
+                            >
+                              {options.map((item) => (
+                                <option key={item.value} value={item.value}>
+                                  {item.label}
+                                </option>
+                              ))}
+                            </select>
+                            <input className="custom-btn btn" type="submit" value="Submit"/>
+                          </form>
+                        </div>
+                      </li>
+                    ))
+                  }
+              }
+
+              const posts = [
+                { id: 'silver', url: 'images/silver.png', title: 'Silver', ptitle: 'Серебристый' },
+                { id: 'deepPurple', url: 'images/purple.png', title: 'Deep purple', ptitle: 'Темно фиолетвый' },
+                { id: 'gold', url: 'images/gold.png', title: 'Gold', ptitle: 'Золотой' },
+                { id: 'spaceBlack', url: 'images/black.png', title: 'Space black', ptitle: 'Космический черный'}
+              ];
 
               const options = [
                 { value: '128', label: '128 ГБ'},
@@ -95,47 +137,6 @@
                 { value: '512', label: '512 ГБ'},
                 { value: '1024', label: '1 ТБ'},
               ];
-
-              const ManagedComponent = () =>
-                posts.map((post) => <Card key={post.id} post={post}/>);
-
-              function Card({ post }) {
-                const [value, setValue] = React.useState(options[0].value);
-
-                const onSubmit = React.useCallback(() => {
-                  alert('Вы выбрали ' + post.ptitle.toLowerCase() + " цвет и " +  value + ' ГБ'); 
-                  event.preventDefault();             
-                }, [value]);
-
-                const onChange = ((e) => {
-                  console.log('старое значение: ' + value + ' новое значение: ' + e.target.value);
-                  setValue(e.target.value);
-                })
-
-                return(
-                  <li key={post.id} className={post.cname}>
-                    <img src={post.url} alt={post.ptitle}/>
-                    <h3>{post.title}</h3>
-                    <p>{post.ptitle}</p>
-                    <div className={post.sclass}>
-                      <form onSubmit={onSubmit}>
-                        <select
-                          name={post.id}
-                          value={value}
-                          onChange ={onChange}
-                        >
-                          {options.map((item) => (
-                            <option key={item.value} value={item.value}>
-                              {item.label}
-                            </option>
-                          ))}
-                        </select>
-                        <input className={post.cbtn} type="submit" value="Submit"/>
-                      </form>
-                    </div>
-                  </li>
-                )
-              }
             ReactDOM.render(<ManagedComponent/>, document.getElementById("root"));
             </script>
           </div>
