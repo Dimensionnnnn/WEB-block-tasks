@@ -84,20 +84,27 @@
             </h2>
             <ul id="root" class="color-list"></ul>
             <script type="text/babel">
-
               class ManagedComponent extends React.Component {
-                state = {value: options[0].value}
+                  constructor(props) {
+                    super(props);
 
-                handleSubmit = ({target: {name} }) => {
-                  alert('Вы выбрали ' + name.toLowerCase() + ' цвет и ' + this.state.value + ' ГБ');
-                  event.preventDefault();
-                }
-                handleChange = ({ target: {name, value} }) => { 
-                  console.log('старое значение: ' + this.state.value + ' новое значение: ' + value);
-                  this.setState({value});
-                }
+                    this.state={ value: options[0].value}
 
-                  render() {
+                    this.handleChange = this.handleChange.bind(this);
+                    this.handleSubmit = this.handleSubmit.bind(this);
+                  }
+
+                  handleSubmit = ({target: {name} }) => {
+                    event.preventDefault();
+                    alert('Вы выбрали ' + name.toLowerCase() + ' цвет и ' + this.state.value + ' ГБ');
+                  }
+
+                  handleChange = ({ target: {name, value} }) => { 
+                    console.log('старое значение: ' + this.state.value + ' новое значение: ' + value);
+                    this.setState({value});
+                  }
+
+                  render(){
                     return posts.map((post) =>(
                       <li key={post.id} className="color-item">
                         <img src={post.url} alt={post.ptitle}/>
@@ -105,11 +112,7 @@
                         <p>{post.ptitle}</p>
                         <div className="selectdiv">
                           <form name={post.ptitle} onSubmit={this.handleSubmit}>
-                            <select
-                              name={post.id}
-                              value={this.state[post.ptitle]}
-                              onChange={this.handleChange}
-                            >
+                            <select name={post.id} value={this.state[post.ptitle]} onChange={this.handleChange}>
                               {options.map((item) => (
                                 <option key={item.value} value={item.value}>
                                   {item.label}
@@ -122,11 +125,11 @@
                       </li>
                     ))
                   }
-              }
+                }
 
               const posts = [
                 { id: 'silver', url: 'images/silver.png', title: 'Silver', ptitle: 'Серебристый' },
-                { id: 'deepPurple', url: 'images/purple.png', title: 'Deep purple', ptitle: 'Темно фиолетвый' },
+                { id: 'deepPurple', url: 'images/purple.png', title: 'Deep purple', ptitle: 'Темно фиолетовый' },
                 { id: 'gold', url: 'images/gold.png', title: 'Gold', ptitle: 'Золотой' },
                 { id: 'spaceBlack', url: 'images/black.png', title: 'Space black', ptitle: 'Космический черный'}
               ];
