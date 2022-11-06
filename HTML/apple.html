@@ -94,14 +94,14 @@
                     this.handleSubmit = this.handleSubmit.bind(this);
                   }
 
-                  handleSubmit = ({target: {name} }) => {
+                  handleSubmit() {
                     event.preventDefault();
-                    alert('Вы выбрали ' + name.toLowerCase() + ' цвет и ' + this.state.value + ' ГБ');
+                    alert('Вы выбрали ' + event.target.name.toLowerCase() + ' цвет и ' + this.state.value + ' ГБ');
                   }
 
-                  handleChange = ({ target: {name, value} }) => { 
-                    console.log('старое значение: ' + this.state.value + ' новое значение: ' + value);
-                    this.setState({value});
+                  handleChange() { 
+                    console.log('старое значение: ' + this.state.value + ' новое значение: ' + event.target.value);
+                    this.setState({ value: event.target.value });
                   }
 
                   render(){
